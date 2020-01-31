@@ -3,7 +3,7 @@ import React from 'react'
 class Pet extends React.Component {
   render() {
     return (
-      <div className="card" id={this.props.key}>
+      <div className="card">
         <div className="content">
           <a className="header">
             {this.props.pet.gender === "male" ? '♂' : '♀' }

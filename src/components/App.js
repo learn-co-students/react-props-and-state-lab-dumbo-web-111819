@@ -37,15 +37,18 @@ class App extends React.Component {
   }
 
   adopt = (petId) => {
-    let pets = this.state.pets 
-    let targetPet = pets.filter(pet => pet.id === petId)
-    targetPet[0].isAdopted = true
-    let arr = pets.filter(pet => pet.id !== petId)
-    let newarr = [...arr, targetPet[0]]
-    // console.log([newarr])
+    let pets = this.state.pets
+    let updatedPets = pets.map(pet=>{
+      if(pet.id===petId){
+        let updatedPet = {...pet}
+        updatedPet.isAdopted = true
+        return updatedPet
+      }
+      return pet
+    }) 
     this.setState({
-        pets: newarr
-    }, ()=> console.log(this.state.pets))
+        pets: updatedPets
+    })
   }
 
   render() {
