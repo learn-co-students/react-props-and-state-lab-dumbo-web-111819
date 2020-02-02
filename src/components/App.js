@@ -15,6 +15,74 @@ class App extends React.Component {
     }
   }
 
+
+
+onChangeType=(updateFilterState) => {
+  // console.log(updateFilterState)
+  this.setState({
+    filters:{
+      type:updateFilterState
+    }
+  })
+} 
+
+
+onFindPetsClick=() => {
+  if(this.state.filters.type==='all'){
+    fetch('/api/pets')
+    .then(response=>response.json())
+    .then(pojos=>{
+      this.setState({
+        pets:pojos
+      })
+      // console.log(pojos)
+    })
+
+  }
+  else if(this.state.filters.type==='cat'){
+    fetch('/api/pets?type=cat')
+    .then(response=>response.json())
+    .then(pojos=>{
+      this.setState({
+        pets:pojos
+      })
+      // console.log(pojos)
+    })
+
+  }
+  else if(this.state.filters.type==='dog'){
+    fetch('/api/pets?type=dog')
+    .then(response=>response.json())
+    .then(pojos=>{
+      this.setState({
+        pets:pojos
+      })
+      // console.log(pojos)
+    })
+
+  }
+  else if(this.state.filters.type==='micropig'){
+    fetch('/api/pets?type=micropig')
+    .then(response=>response.json())
+    .then(pojos=>{
+      this.setState({
+        pets:pojos
+      })
+      // console.log(pojos)
+    })
+
+  }
+
+
+
+  
+  // console.log(listOfPets)
+}
+onAdoptPet=(petId) => {
+  // console.log(petId)
+  let foundPet=this.state.pets.find(element=>element.id === petId)
+  foundPet.isAdopted=true
+}
   render() {
     return (
       <div className="ui container">
@@ -24,10 +92,10 @@ class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters />
+              <Filters onChangeType={this.onChangeType} onFindPetsClick={this.onFindPetsClick}/>
             </div>
             <div className="twelve wide column">
-              <PetBrowser />
+              <PetBrowser pets={this.state.pets} onAdoptPet={this.onAdoptPet}/>
             </div>
           </div>
         </div>
